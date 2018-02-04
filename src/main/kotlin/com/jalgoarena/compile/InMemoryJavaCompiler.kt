@@ -14,7 +14,7 @@ class InMemoryJavaCompiler : JvmCompiler {
     override fun programmingLanguage() = "java"
 
     override fun run(className: String, source: String): MutableMap<String, ByteArray?> {
-
+        println("JAVA")
         val javaFileName = "$className.java"
 
         val fileManager = MemoryJavaFileManager(standardFileManager())

@@ -33,8 +33,5 @@ class JythonCompiler{
             System.out.println(ex.message)
             return 1
         }
-
-
     }
-
 }

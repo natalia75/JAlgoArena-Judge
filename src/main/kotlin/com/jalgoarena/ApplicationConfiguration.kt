@@ -1,5 +1,6 @@
 package com.jalgoarena
 
+
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
@@ -14,6 +15,8 @@ import com.jalgoarena.type.ListNode
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.client.RestTemplate
+import com.jalgoarena.codegeneration.PythonCodeGenerator
+import com.jalgoarena.compile.PythonCompiler
 
 @Configuration
 open class ApplicationConfiguration {
@@ -35,12 +38,14 @@ open class ApplicationConfiguration {
     @Bean
     open fun codeGenerators(): List<JvmCodeGenerator> = listOf(
             JavaCodeGenerator(),
-            KotlinCodeGenerator()
+            KotlinCodeGenerator(),
+			PythonCodeGenerator()
     )
 
     @Bean
     open fun codeCompilers(): List<JvmCompiler> = listOf(
             InMemoryJavaCompiler(),
-            KotlinCompiler()
+            KotlinCompiler(),
+			PythonCompiler()
     )
 }

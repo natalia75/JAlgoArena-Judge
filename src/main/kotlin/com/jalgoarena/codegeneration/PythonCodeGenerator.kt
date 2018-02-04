@@ -7,19 +7,19 @@ class PythonCodeGenerator : JvmCodeGeneration {
     override fun programmingLanguage() = "python"
 
     override fun generateEmptyFunction(function: Function) = """class Solution:
-        ${functionDeclaration(function)}
         ${functionComment(function)}
+        ${functionDeclaration(function)}
             // Write your code here
     """
 
     override fun functionComment(function: Function): String {
         return """'''${parametersComment(function)}
-  # @return ${function.returnStatement.comment}'''"""
+        @return ${function.returnStatement.comment}'''"""
     }
 
     override fun parametersComment(function: Function): String {
         return function.parameters.map { parameter ->
-            "  # @param ${parameter.name} ${parameter.comment}"
+            "  @param ${parameter.name} ${parameter.comment}"
         }.joinToString(System.lineSeparator())
     }
 

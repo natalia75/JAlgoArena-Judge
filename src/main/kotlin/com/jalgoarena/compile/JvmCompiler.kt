@@ -15,7 +15,7 @@ interface JvmCompiler {
         val clazz = Class.forName(
                 qualifiedClassName, true, MemoryClassLoader(classBytes)
         )
-
+        clazz.declaredClasses.forEach { println("Class: ${it.name} ${it.modifiers}") }
         clazz.declaredMethods
                 .filter { it.name == methodName && it.parameterCount == parameterCount && Modifier.isPublic(it.modifiers)}
                 .forEach {

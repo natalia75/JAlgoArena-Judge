@@ -15,7 +15,7 @@ class KotlinCompiler : JvmCompiler {
     override fun programmingLanguage() = "kotlin"
 
     override fun run(className: String, source: String): MutableMap<String, ByteArray?> {
-
+        println("KOTLIN")
         val tmpDir = createTmpDir()
         val origErr = System.err
 

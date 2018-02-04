@@ -18,6 +18,12 @@ fun String.findKotlinClassName(): Optional<String> {
     return if (matcher.find()) Optional.of(matcher.group(1)) else Optional.empty<String>()
 }
 
+fun String.findPythonClassName(): Optional<String> {
+
+    val matcher = PATTERN_FOR_FINDING_PYTHON_CLASS_NAME.matcher(this)
+    return if (matcher.find()) Optional.of(matcher.group(1)) else Optional.empty<String>()
+}
+
 
 private val PATTERNS_FOR_FINDING_JAVA_CLASS_NAME = arrayOf(
         Pattern.compile("public\\s+class\\s+(\\w+)\\s+"),
@@ -27,4 +33,7 @@ private val PATTERNS_FOR_FINDING_JAVA_CLASS_NAME = arrayOf(
 
 private val PATTERN_FOR_FINDING_KOTLIN_CLASS_NAME =
         Pattern.compile("class\\s+(\\w+)\\s+")
+
+private val PATTERN_FOR_FINDING_PYTHON_CLASS_NAME =
+        Pattern.compile("class\\s+(\\w+):")
 

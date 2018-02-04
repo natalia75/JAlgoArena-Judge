@@ -4,17 +4,16 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.PrintStream
 import java.util.*
-
-
+import org.slf4j.LoggerFactory
 
 class PythonCompiler : JvmCompiler {
     override fun programmingLanguage() = "python"
-
+    private val LOG=LoggerFactory.getLogger(this.javaClass)
     override fun run(className: String, source: String): MutableMap<String, ByteArray?> {
-
+        println("PYTHON")
         val tmpDir = createTmpDir()
         val origErr = System.err
-
+        LOG.info(">>> tmpDir: ${tmpDir.absolutePath}")
         try {
             val sourceFile = writeSourceFile(tmpDir, "$className.py", source)
             val out = File(tmpDir, "out")
@@ -28,14 +27,14 @@ class PythonCompiler : JvmCompiler {
                 else -> throw CompileErrorException(errMessageBytes.toString("utf-8"))
             }
         } finally {
-            tmpDir.deleteRecursively()
+            //tmpDir.deleteRecursively()
             System.setErr(origErr)
         }
     }
 
     private fun readClassBytes(out: File): MutableMap<String, ByteArray?> {
         val classBytes: MutableMap<String, ByteArray?> = HashMap()
-
+        out.listFiles().forEach { LOG.info(">>> File: ${it.name}") }
         out.listFiles()
                 .filter { it.absolutePath.endsWith(".class") }
                 .forEach {
@@ -51,6 +50,7 @@ class PythonCompiler : JvmCompiler {
         try {
             val jCompiler = JythonCompiler()
             exitCode = jCompiler.compile(path.absolutePath)
+            LOG.info(">>> ExitCode: ${exitCode}")
         } catch (e: Exception) {
             return ExitCode.COMPILATION_ERROR
         }
