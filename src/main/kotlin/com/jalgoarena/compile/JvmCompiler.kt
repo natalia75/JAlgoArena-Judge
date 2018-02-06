@@ -10,10 +10,14 @@ import java.net.URLClassLoader
 interface JvmCompiler {
 
     fun compileMethod(qualifiedClassName: String, methodName: String, parameterCount: Int, source: String): Pair<Any, Method> {
-
+        println("Qualified class name: ${qualifiedClassName}, Method name: ${methodName}")
         val classBytes = run(qualifiedClassName, source)
-        val clazz = Class.forName(
-                qualifiedClassName, true, MemoryClassLoader(classBytes)
+        classBytes.keys.forEach { println("key: ${it}") }
+        var qClassName = qualifiedClassName
+        if(programmingLanguage()=="python"){
+            qClassName += "\$py"
+        }
+        val clazz = Class.forName(qClassName, true, MemoryClassLoader(classBytes)
         )
         clazz.declaredClasses.forEach { println("Class: ${it.name} ${it.modifiers}") }
         clazz.declaredMethods

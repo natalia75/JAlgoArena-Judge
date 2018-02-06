@@ -127,7 +127,14 @@ open class JvmJudgeEngine(
             problem: Problem,
             userCode: String
     ) = try {
-        val (instance, method) = compiler.compileMethod(className.get(), function.name, function.parameters.size, userCode)
+
+        var classToFound = className.get()
+        //if(compiler.programmingLanguage()=="python"){
+        //    classToFound += "\$py"
+        //}
+        println("class name: ${classToFound}")
+        val (instance, method) = compiler.compileMethod(classToFound, function.name, function.parameters.size, userCode)
+        println("[1]")
         judge(instance, method, problem)
     } catch (e: Throwable) {
         when (e) {
