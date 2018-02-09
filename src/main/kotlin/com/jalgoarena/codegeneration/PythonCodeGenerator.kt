@@ -13,7 +13,7 @@ class PythonCodeGenerator : JvmCodeGeneration {
 
     override fun functionComment(function: Function): String {
         var retVal = "${parametersComment(function)}"
-        retVal += System.lineSeparator()
+        retVal += System.lineSeparator() + "\t"
         retVal += "//@return ${function.returnStatement.comment}"
         return retVal
     }
@@ -21,7 +21,7 @@ class PythonCodeGenerator : JvmCodeGeneration {
     override fun parametersComment(function: Function): String {
         return function.parameters.map { parameter ->
             "//@param ${parameter.name} ${parameter.comment}"
-        }.joinToString(System.lineSeparator())
+        }.joinToString(System.lineSeparator() + "\t")
     }
 
     override fun generateParameterDeclaration(type: String, parameterName: String, generic: String?) =

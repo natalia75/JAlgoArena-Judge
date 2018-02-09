@@ -24,12 +24,12 @@ class PythonCodeGeneratorTest {
     fun generates_skeleton_function_for_WORD_LADDER() {
         val wordLadderGenerated = pythonCodeGenerator.generateEmptyFunction(WORD_LADDER)
         val wordLadderExpected = """class Solution:
-    //@param begin_word the begin word
-    //@param end_word the end word
+    //@param begin the begin word
+    //@param end the end word
     //@param dict the dictionary
     //@return The shortest length
-    def ladderLength(self, begin_word, end_word, dict):
-        //Write your code here"""
+    def ladderLength(self, begin, end, dict):
+        // Write your code here"""
 
         assertThat(wordLadderGenerated).isEqualTo(wordLadderExpected)
     }
